@@ -16,6 +16,22 @@ from progressbar import *
 
 ignoreList = ['www', 'http:', 'https:', 'app', 'apps', 'us', 'store']
 
+def check_network_connection():
+    try:
+        response = urllib2.urlopen('http://www.google.com.tw', timeout = 1)
+        return True
+    except urllib2.URLError as err:
+        print "No network connection."
+        pass
+    return False
+
+# def check_connectivity(reference):
+#     try:
+#         urllib.request.urlopen(reference, timeout=1)
+#         return True
+#     except urllib.request.URLError:
+#         return False
+
 def get_url(url_string, IS_CONTAINS_CHINESE):
     if IS_CONTAINS_CHINESE:
         url_string = urllib2.quote(url_string, safe="%/:=&?~#+!$,;'@()*[]")
@@ -33,7 +49,7 @@ if __name__ == "__main__":
                 ' ', ETA(),
                 ' ', ' ']
 
-    if len(sys.argv) == 2:
+    if len(sys.argv) == 2 and check_network_connection():
         fileName = sys.argv[1]
         print "File Name: " + fileName + "\n"
 
@@ -69,6 +85,3 @@ if __name__ == "__main__":
 
         except IOError:
             print "IOError"
-
-    else:
-        print "No File."
