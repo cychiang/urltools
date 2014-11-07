@@ -25,13 +25,6 @@ def check_network_connection():
         pass
     return False
 
-# def check_connectivity(reference):
-#     try:
-#         urllib.request.urlopen(reference, timeout=1)
-#         return True
-#     except urllib.request.URLError:
-#         return False
-
 def get_url(url_string, IS_CONTAINS_CHINESE):
     if IS_CONTAINS_CHINESE:
         url_string = urllib2.quote(url_string, safe="%/:=&?~#+!$,;'@()*[]")
